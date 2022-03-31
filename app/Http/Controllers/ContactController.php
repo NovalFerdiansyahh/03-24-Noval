@@ -14,9 +14,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('contacts', [
-            "title" => "Contacts"
-        ]);
+        $contacts = Contact::paginate(2);
+        return view('admin/contacts/index', compact('contacts'));
     }
 
     /**
@@ -26,7 +25,9 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+        return view('contacts', [
+            "title" => "Contacts"
+        ]);
     }
 
     /**
@@ -38,7 +39,7 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-         $contact = Contact::create($request->all());
+        $contact = Contact::create($request->all());
         $contact->save();
 
         return redirect('contacts');
